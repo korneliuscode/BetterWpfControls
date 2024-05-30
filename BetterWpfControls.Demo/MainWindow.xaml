@@ -1,14 +1,17 @@
 ﻿<Window x:Class="BetterWpfControls.Demo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:bc="BetterWpfControls"
-        xmlns:comp="clr-namespace:BetterWpfControls.Demo.Components"
+        xmlns:bc="clr-namespace:BetterWpfControls;assembly=BetterWpfControls"
+        xmlns:bcp="clr-namespace:BetterWpfControls.Panels;assembly=BetterWpfControls"
+		xmlns:comp="clr-namespace:BetterWpfControls.Demo.Components"
         Title="Better WPF Controls - Demo" Height="800" Width="600">
 
     <Window.Resources>
 
-
-        <Style TargetType="TextBlock">
+			<Style x:Key="{x:Type bc:TabItem}" TargetType="{x:Type bc:TabItem}">
+				<!-- Style setters here -->
+			</Style>
+		<Style TargetType="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
     </Window.Resources>
@@ -16,7 +19,7 @@
     <ScrollViewer>
         <StackPanel Margin="20">
             <Expander Header="Scrollable Panel">
-                <bc:ScrollablePanel>
+				<bcp:ScrollablePanel>
                     <Button Content="Button 1" />
                     <Button Content="Button 2" />
                     <Button Content="Button 3" />
@@ -29,13 +32,13 @@
                     <Button Content="Button 10" />
                     <Button Content="Button 11" />
                     <Button Content="Button 12" />
-                </bc:ScrollablePanel>
+                </bcp:ScrollablePanel>
             </Expander>
 
             <Expander Header="Resizable Panel" Margin="0,10,0,0">
                 <StackPanel>
                     <TextBlock Text="In order to get sense of how this panel behaves, resize the width of this window" />
-                    <bc:ResizablePanel>
+                    <bcp:ResizablePanel>
                         <Button>
                             <TextBlock Text="Button 1" TextTrimming="CharacterEllipsis"/>
                         </Button>
@@ -51,7 +54,7 @@
                         <Button>
                             <TextBlock Text="Button 5X" TextTrimming="CharacterEllipsis"/>
                         </Button>
-                    </bc:ResizablePanel>
+                    </bcp:ResizablePanel>
                 </StackPanel>
             </Expander>
 
@@ -161,7 +164,7 @@
 
                     <TextBlock Margin="0,10,0,0" Text="Tab control with a fixed tab and quick links button" FontSize="10"/>
                     <bc:TabControl Margin="0,5,0,0" Height="70">
-                        <bc:TabItem Header="Summary" bc:ScrollablePanel.IsLocked="True">
+                        <bc:TabItem Header="Summary" bcp:ScrollablePanel.IsLocked="True">
                         </bc:TabItem>
                         <bc:TabItem Header="Simple caption">
                         </bc:TabItem>
@@ -175,7 +178,7 @@
 
                     <TextBlock Margin="0,10,0,0" Text="Tab control which doesn't select items when scroll" FontSize="10" />
                     <bc:TabControl Margin="0,5,0,0" Height="70" SelectItemOnScroll="False">
-                        <bc:TabItem Header="Summary" bc:ScrollablePanel.IsLocked="True">
+						<bc:TabItem Header="Summary" bcp:ScrollablePanel.IsLocked="True">
                         </bc:TabItem>
                         <bc:TabItem Header="Simple caption">
                         </bc:TabItem>
@@ -190,13 +193,13 @@
                     <TextBlock Margin="0,10,0,0" Text="Custom content for left/right scroll buttons" FontSize="10"/>
                     <bc:TabControl Margin="0,5,0,0" Height="70">
                         <bc:TabControl.ScrollToLeftContent>
-                            <Button bc:ScrollablePanel.IsScroller="True" Content="&lt;&lt;" Height="19" Padding="0" Margin="0,0,2,0" />
+                            <Button bcp:ScrollablePanel.IsScroller="True" Content="&lt;&lt;" Height="19" Padding="0" Margin="0,0,2,0" />
                         </bc:TabControl.ScrollToLeftContent>
                         <bc:TabControl.ScrollToRightContent>
-                            <Button bc:ScrollablePanel.IsScroller="True" Content="&gt;&gt;" Height="19" Padding="0" Margin="2,0,0,0" />
+                            <Button bcp:ScrollablePanel.IsScroller="True" Content="&gt;&gt;" Height="19" Padding="0" Margin="2,0,0,0" />
                         </bc:TabControl.ScrollToRightContent>
 
-                        <bc:TabItem Header="Summary" bc:ScrollablePanel.IsLocked="True">
+                        <bc:TabItem Header="Summary" bcp:ScrollablePanel.IsLocked="True">
                         </bc:TabItem>
                         <bc:TabItem Header="Simple caption">
                         </bc:TabItem>
@@ -224,7 +227,7 @@
                                                 </Grid.RowDefinitions>
                                                 <DockPanel>
                                                     <bc:MenuButton x:Name="PART_QuickLinksHost" Margin="1,2,0,0" DockPanel.Dock="Right" Panel.ZIndex="2" VerticalAlignment="Center" />
-                                                    <bc:ScrollablePanel Name="PART_HeaderPanel" Grid.Row="0" Panel.ZIndex="1" Margin="0,0,4,-1" IsItemsHost="True" KeyboardNavigation.TabIndex="1" Background="Transparent" />
+                                                    <bcp:ScrollablePanel Name="PART_HeaderPanel" Grid.Row="0" Panel.ZIndex="1" Margin="0,0,4,-1" IsItemsHost="True" KeyboardNavigation.TabIndex="1" Background="Transparent" />
                                                 </DockPanel>
                                                 <Border Name="Border" Grid.Row="1" Background="White" BorderBrush="#888" BorderThickness="1" CornerRadius="2" KeyboardNavigation.TabNavigation="Local" KeyboardNavigation.DirectionalNavigation="Contained" KeyboardNavigation.TabIndex="2" >
                                                     <ContentPresenter Name="PART_SelectedContentHost" Margin="4" ContentSource="SelectedContent" />
@@ -267,7 +270,7 @@
                             </Style>
                         </bc:TabControl.Resources>
 
-                        <bc:TabItem Header="Summary" bc:ScrollablePanel.IsLocked="True">
+                        <bc:TabItem Header="Summary" bcp:ScrollablePanel.IsLocked="True">
                         </bc:TabItem>
                         <bc:TabItem Header="Simple caption">
                         </bc:TabItem>

@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterWpfControls.Demo", "BetterWpfControls.Demo\BetterWpfControls.Demo.csproj", "{C20F7095-FC9A-40D7-945B-5A9B6F07FA65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetterWpfControls.Demo", "BetterWpfControls.Demo\BetterWpfControls.Demo.csproj", "{C20F7095-FC9A-40D7-945B-5A9B6F07FA65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterWpfControls", "BetterWpfControls\BetterWpfControls.csproj", "{2D0B1ED5-4793-406F-8090-2E75D510B1D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BetterWpfControls", "BetterWpfControls\BetterWpfControls.csproj", "{2D0B1ED5-4793-406F-8090-2E75D510B1D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
