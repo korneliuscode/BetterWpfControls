@@ -125,9 +125,9 @@
 					<Condition Property="IsMouseOver" Value="True" />
 					<Condition Property="IsHighlightingEnabled" Value="True" />
 				</MultiTrigger.Conditions>
-				<Setter Property="BorderBrush" Value="LightBlue" />
-				<Setter Property="Background" Value="Blue" />
-				<Setter Property="Foreground" Value="White" />
+				<Setter Property="BorderBrush" Value="#660078D7" />
+				<Setter Property="Background" Value="#330078D7" />
+				<Setter Property="Foreground" Value="#FF000000" />
 			</MultiTrigger>
 		</Style.Triggers>
 	</Style>
