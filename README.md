@@ -41,7 +41,7 @@ A `TabControl` for many tabs:
   A button inside it marked `bwcPanels:ScrollablePanel.IsScroller="True"` gets the scroll command.
 
 ```xml
-<bwc:TabControl ItemsSource="{Binding Accounts}" SelectedItem="{Binding SelectedAccount}">
+<bwc:TabControl ItemsSource="{Binding Documents}" SelectedItem="{Binding SelectedDocument}">
     <bwc:TabItem Header="Summary" bwcPanels:ScrollablePanel.IsLocked="True" />
 </bwc:TabControl>
 ```
