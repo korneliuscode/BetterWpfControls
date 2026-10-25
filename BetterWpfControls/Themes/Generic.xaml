@@ -39,24 +39,28 @@
 		<Setter Property="VerticalAlignment" Value="Center" />
 		<Setter Property="ContentBorderBrush" Value="LightGray" />
 		<Setter Property="ContentBorderThickness" Value="0,0,0,1" />
+		<Setter Property="Padding" Value="3,4" />
+		<Setter Property="HoverBackground" Value="#1F808080" />
+		<Setter Property="PopupBackground" Value="WhiteSmoke" />
+		<Setter Property="PopupBorderBrush" Value="Gray" />
+		<Setter Property="ItemHighlightBackground" Value="#330078D7" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:MenuButton}">
 					<Grid Background="{TemplateBinding Background}">
-						<ToggleButton Name="ToggleButton" Opacity="1" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" HorizontalAlignment="Right" VerticalAlignment="{TemplateBinding VerticalAlignment}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+						<ToggleButton Name="ToggleButton" Opacity="1" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" HorizontalAlignment="Right" VerticalAlignment="{TemplateBinding VerticalAlignment}" MinWidth="{TemplateBinding MinWidth}" MinHeight="{TemplateBinding MinHeight}" Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding HoverBackground}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
 							<ToggleButton.Template>
 								<ControlTemplate TargetType="ToggleButton">
-									<Border Background="Transparent" Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
-										<StackPanel VerticalAlignment="Center">
-											<Path x:Name="p1" Stroke="Gray" StrokeThickness="1" Fill="Gray" Data="M 0 0 H 10" Margin="0,3,0,0"/>
-											<Path x:Name="p2" Stroke="Gray" StrokeThickness="1" Fill="Gray" Data="M 1 0 L 5 4 L 9 0 Z" Margin="0,3,0,0"/>
-										</StackPanel>
+									<Border x:Name="bd" Background="Transparent" CornerRadius="3" Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+										<!-- Chevron in the text colour, so it follows light and dark themes -->
+										<Path Stroke="{TemplateBinding Foreground}" StrokeThickness="1.5" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 0,0 L 4.5,4.5 L 9,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
 									</Border>
-
 									<ControlTemplate.Triggers>
 										<Trigger Property="IsMouseOver" Value="True">
-											<Setter TargetName="p1" Property="Stroke" Value="Gray" />
-											<Setter TargetName="p2" Property="Fill" Value="Orange" />
+											<Setter TargetName="bd" Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
+										</Trigger>
+										<Trigger Property="IsChecked" Value="True">
+											<Setter TargetName="bd" Property="Background" Value="{Binding Background, RelativeSource={RelativeSource TemplatedParent}}" />
 										</Trigger>
 									</ControlTemplate.Triggers>
 								</ControlTemplate>
@@ -67,10 +71,14 @@
 							<ContentPresenter ContentSource="Content" />
 						</Border>
 
-						<Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
-							<Grid Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
-								<Border x:Name="DropDownBorder" Background="WhiteSmoke" BorderThickness="1" BorderBrush="Gray"/>
-								<ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+						<Popup Name="Popup" Placement="Bottom" PlacementTarget="{Binding ElementName=ToggleButton}" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Fade">
+							<Grid Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}" Margin="0,2,8,8">
+								<Border x:Name="DropDownBorder" Background="{TemplateBinding PopupBackground}" BorderThickness="1" BorderBrush="{TemplateBinding PopupBorderBrush}" CornerRadius="6">
+									<Border.Effect>
+										<DropShadowEffect BlurRadius="8" ShadowDepth="2" Direction="270" Opacity="0.25" />
+									</Border.Effect>
+								</Border>
+								<ScrollViewer Margin="4" SnapsToDevicePixels="True">
 									<StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
 								</ScrollViewer>
 							</Grid>
@@ -81,14 +89,10 @@
 							<Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
 						</Trigger>
 						<Trigger Property="IsEnabled" Value="false">
-							<Setter Property="Foreground" Value="Gray"/>
+							<Setter TargetName="ToggleButton" Property="Opacity" Value="0.35"/>
 						</Trigger>
 						<Trigger Property="IsGrouping" Value="true">
 							<Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
-						</Trigger>
-						<Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
-							<Setter TargetName="DropDownBorder" Property="CornerRadius" Value="4"/>
-							<Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
 						</Trigger>
 						<MultiTrigger>
 							<MultiTrigger.Conditions>
@@ -107,29 +111,54 @@
 		<Setter Property="Command" Value="{Binding Command, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MenuButton}}}" />
 		<Setter Property="CommandParameter" Value="{Binding}" />
 		<Setter Property="Background" Value="Transparent" />
-		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="Padding" Value="8,4" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:MenuButtonItem}">
-					<Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}" Padding="3">
+					<Border Background="{TemplateBinding Background}" CornerRadius="4" Padding="{TemplateBinding Padding}">
 						<ContentPresenter />
 					</Border>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
 		<Style.Triggers>
+			<!-- Only the background changes: the text keeps the colour it inherits, which the theme chose -->
 			<MultiTrigger>
 				<MultiTrigger.Conditions>
 					<Condition Property="IsMouseOver" Value="True" />
 					<Condition Property="IsHighlightingEnabled" Value="True" />
 				</MultiTrigger.Conditions>
-				<Setter Property="BorderBrush" Value="#660078D7" />
-				<Setter Property="Background" Value="#330078D7" />
-				<Setter Property="Foreground" Value="#FF000000" />
+				<Setter Property="Background" Value="{Binding ItemHighlightBackground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MenuButton}}}" />
 			</MultiTrigger>
 		</Style.Triggers>
+	</Style>
+
+	<Style TargetType="{x:Type local:ScrollButton}">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="HoverBackground" Value="#1F808080" />
+		<Setter Property="Focusable" Value="False" />
+		<Setter Property="Width" Value="20" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type local:ScrollButton}">
+					<Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}" Padding="{TemplateBinding Padding}">
+						<!-- Chevron in the text colour, so it follows light and dark themes -->
+						<Path x:Name="chevron" Stroke="{TemplateBinding Foreground}" StrokeThickness="1.5" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round" Data="M 4.5,0 L 0,4.5 L 4.5,9" HorizontalAlignment="Center" VerticalAlignment="Center" />
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="Direction" Value="Right">
+							<Setter TargetName="chevron" Property="Data" Value="M 0,0 L 4.5,4.5 L 0,9" />
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter TargetName="bd" Property="Background" Value="{Binding HoverBackground, RelativeSource={RelativeSource TemplatedParent}}" />
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter TargetName="chevron" Property="Opacity" Value="0.35" />
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
 	</Style>
 
 	<Style TargetType="{x:Type local:ImageButton}">

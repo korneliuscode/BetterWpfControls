@@ -145,6 +145,60 @@ namespace BetterWpfControls
 
         #endregion AlwaysShowToggleButton
 
+        #region HoverBackground
+
+        /// <summary>Background of the toggle button while the mouse is over it or the menu is open.</summary>
+        public Brush HoverBackground
+        {
+            get { return (Brush)GetValue(HoverBackgroundProperty); }
+            set { SetValue(HoverBackgroundProperty, value); }
+        }
+
+        public static readonly DependencyProperty HoverBackgroundProperty =
+            DependencyProperty.Register("HoverBackground", typeof(Brush), typeof(MenuButton), new UIPropertyMetadata(null));
+
+        #endregion HoverBackground
+
+        #region PopupBackground
+
+        public Brush PopupBackground
+        {
+            get { return (Brush)GetValue(PopupBackgroundProperty); }
+            set { SetValue(PopupBackgroundProperty, value); }
+        }
+
+        public static readonly DependencyProperty PopupBackgroundProperty =
+            DependencyProperty.Register("PopupBackground", typeof(Brush), typeof(MenuButton), new UIPropertyMetadata(null));
+
+        #endregion PopupBackground
+
+        #region PopupBorderBrush
+
+        public Brush PopupBorderBrush
+        {
+            get { return (Brush)GetValue(PopupBorderBrushProperty); }
+            set { SetValue(PopupBorderBrushProperty, value); }
+        }
+
+        public static readonly DependencyProperty PopupBorderBrushProperty =
+            DependencyProperty.Register("PopupBorderBrush", typeof(Brush), typeof(MenuButton), new UIPropertyMetadata(null));
+
+        #endregion PopupBorderBrush
+
+        #region ItemHighlightBackground
+
+        /// <summary>Background of the menu item under the mouse.</summary>
+        public Brush ItemHighlightBackground
+        {
+            get { return (Brush)GetValue(ItemHighlightBackgroundProperty); }
+            set { SetValue(ItemHighlightBackgroundProperty, value); }
+        }
+
+        public static readonly DependencyProperty ItemHighlightBackgroundProperty =
+            DependencyProperty.Register("ItemHighlightBackground", typeof(Brush), typeof(MenuButton), new UIPropertyMetadata(null));
+
+        #endregion ItemHighlightBackground
+
         #endregion Properties
 
         #region Methods
