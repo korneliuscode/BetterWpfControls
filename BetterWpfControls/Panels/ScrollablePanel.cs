@@ -32,8 +32,8 @@ namespace BetterWpfControls.Panels
             });
 
             // set default scroll buttons
-            _btnScrollLeft.Content = new ImageButton() { Source = new BitmapImage(new Uri("/BetterWpfControls;component/Resources/scrollLeft.png", UriKind.RelativeOrAbsolute)), Command = ScrollToLeftCommand, Width = 16, Margin = new Thickness(0, 0, 2, 0) };
-            _btnScrollRight.Content = new ImageButton() { Source = new BitmapImage(new Uri("/BetterWpfControls;component/Resources/scrollLeft.png", UriKind.RelativeOrAbsolute)), Command = ScrollToRightCommand, Width = 16, Margin = new Thickness(2, 0, 0, 0), RenderTransformOrigin = new Point(0.5, 0.5), RenderTransform = new RotateTransform() { Angle = 180 } };
+            _btnScrollLeft.Content = new ScrollButton() { Direction = ScrollDirection.Left, Command = ScrollToLeftCommand };
+            _btnScrollRight.Content = new ScrollButton() { Direction = ScrollDirection.Right, Command = ScrollToRightCommand };
         }
 
         #endregion .ctors

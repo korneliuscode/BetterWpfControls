@@ -130,6 +130,8 @@ namespace BetterWpfControls
                     sb.SetBinding(FrameworkElement.VisibilityProperty, b);
                 }
                 sb.SetBinding(MenuButton.ItemsSourceProperty, new Binding("Items") { Mode = BindingMode.OneWay, Source = this });
+                sb.SetBinding(MenuButton.SelectedItemProperty, new Binding(SelectedItemProperty.Name) { Mode = BindingMode.OneWay, Source = this });
+                sb.ShowSelection = true;
                 sb.SetBinding(MenuButton.CommandProperty, new Binding(NavigateToItemCommandProperty.Name) { Mode = BindingMode.OneWay, Source = this });
                 if (sb.ItemTemplate == null && sb.GetBindingExpression(MenuButton.ItemTemplateProperty) == null)
                 {

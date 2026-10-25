@@ -145,6 +145,88 @@ namespace BetterWpfControls
 
         #endregion AlwaysShowToggleButton
 
+        #region HoverBackground
+
+        /// <summary>Background of the toggle button while the mouse is over it or the menu is open.</summary>
+        public Brush HoverBackground
+        {
+            get { return (Brush)GetValue(HoverBackgroundProperty); }
+            set { SetValue(HoverBackgroundProperty, value); }
+        }
+
+        public static readonly DependencyProperty HoverBackgroundProperty =
+            DependencyProperty.Register("HoverBackground", typeof(Brush), typeof(MenuButton), new UIPropertyMetadata(null));
+
+        #endregion HoverBackground
+
+        #region PopupBackground
+
+        public Brush PopupBackground
+        {
+            get { return (Brush)GetValue(PopupBackgroundProperty); }
+            set { SetValue(PopupBackgroundProperty, value); }
+        }
+
+        public static readonly DependencyProperty PopupBackgroundProperty =
+            DependencyProperty.Register("PopupBackground", typeof(Brush), typeof(MenuButton), new UIPropertyMetadata(null));
+
+        #endregion PopupBackground
+
+        #region PopupBorderBrush
+
+        public Brush PopupBorderBrush
+        {
+            get { return (Brush)GetValue(PopupBorderBrushProperty); }
+            set { SetValue(PopupBorderBrushProperty, value); }
+        }
+
+        public static readonly DependencyProperty PopupBorderBrushProperty =
+            DependencyProperty.Register("PopupBorderBrush", typeof(Brush), typeof(MenuButton), new UIPropertyMetadata(null));
+
+        #endregion PopupBorderBrush
+
+        #region ItemHighlightBackground
+
+        /// <summary>Background of the menu item under the mouse.</summary>
+        public Brush ItemHighlightBackground
+        {
+            get { return (Brush)GetValue(ItemHighlightBackgroundProperty); }
+            set { SetValue(ItemHighlightBackgroundProperty, value); }
+        }
+
+        public static readonly DependencyProperty ItemHighlightBackgroundProperty =
+            DependencyProperty.Register("ItemHighlightBackground", typeof(Brush), typeof(MenuButton), new UIPropertyMetadata(null));
+
+        #endregion ItemHighlightBackground
+
+        #region ShowSelection
+
+        /// <summary>Marks the selected item in the menu, e.g. the active tab in the quick links of a <see cref="TabControl"/>.</summary>
+        public bool ShowSelection
+        {
+            get { return (bool)GetValue(ShowSelectionProperty); }
+            set { SetValue(ShowSelectionProperty, value); }
+        }
+
+        public static readonly DependencyProperty ShowSelectionProperty =
+            DependencyProperty.Register("ShowSelection", typeof(bool), typeof(MenuButton), new UIPropertyMetadata(false));
+
+        #endregion ShowSelection
+
+        #region SelectionAccent
+
+        /// <summary>Bar next to the selected item while <see cref="ShowSelection"/> is on.</summary>
+        public Brush SelectionAccent
+        {
+            get { return (Brush)GetValue(SelectionAccentProperty); }
+            set { SetValue(SelectionAccentProperty, value); }
+        }
+
+        public static readonly DependencyProperty SelectionAccentProperty =
+            DependencyProperty.Register("SelectionAccent", typeof(Brush), typeof(MenuButton), new UIPropertyMetadata(null));
+
+        #endregion SelectionAccent
+
         #endregion Properties
 
         #region Methods

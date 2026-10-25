@@ -1,59 +1,114 @@
-#What is it?
-BetterWpfControls is a collection of WPF controls and components. Some of them are brand-new, and some are enhanced versions of existing controls which come with .NET.
+# BetterWpfControls
 
-##What's in the box
-###TreeListBox
-Sometimes you really have to show giant trees on the screen, and virtualization story for WPF TreeView control isn't great. What TreeViewList does is:
+A collection of WPF controls and panels: some are new, others are enhanced versions of the controls
+that ship with WPF. The library targets **.NET 10** (`net10.0-windows`).
 
-1.  It converts trees to plain lists on-the-fly
-2.  Then it reuses virtualization provided by ListBox/VirtualizingStackPanel.
+## Getting started
 
-###TabControl
-What's wrong with default WPF TabControl? Well, nothing...except this: 
-![](http://i3.codeplex.com/Download?ProjectName=betterwpfcontrols&DownloadId=325765)
+Reference the project from your WPF application:
 
-Here is what BetterTabControl gives you:
+```xml
+<ProjectReference Include="..\BetterWpfControls\BetterWpfControls\BetterWpfControls.csproj" />
+```
 
-*Scrolling. If there are too many tabs, you'll see "scroll next/scroll previous" buttons 
-![](http://i3.codeplex.com/Download?ProjectName=betterwpfcontrols&DownloadId=325767)
+and import the namespaces in XAML:
 
-*Quick links to all tabs. Even if a tab is not visible, you can jump to it: 
-![](http://i3.codeplex.com/Download?ProjectName=betterwpfcontrols&DownloadId=325768)
+```xml
+xmlns:bwc="clr-namespace:BetterWpfControls;assembly=BetterWpfControls"
+xmlns:bwcPanels="clr-namespace:BetterWpfControls.Panels;assembly=BetterWpfControls"
+```
 
-*Locked tabs. If some tabs are too important to be scrolled, lock them (like "Summary" tab on the screenshot):
-![](http://i3.codeplex.com/Download?ProjectName=betterwpfcontrols&DownloadId=325769)
+The default styles live in `Themes/Generic.xaml` and are picked up automatically. The solution
+contains a demo application (`BetterWpfControls.Demo`) that shows every control.
 
-### Scrollable Panel
-Custom panel which scrolls its content when there is not enough space to show everything:
-![](http://i3.codeplex.com/Download?ProjectName=betterwpfcontrols&DownloadId=325368)
+```bash
+dotnet build BetterWpfControls.sln
+```
 
-### Resizable Panel
-Custom panel which nicely resizes its children when there is not enough space to show everything.
-This is how items in the sample app look like when there is enough space to show them all:
+## Controls
 
-![](http://i3.codeplex.com/Download?ProjectName=betterwpfcontrols&DownloadId=343928)
+### TabControl
 
-When you reduce the width of the window, panel resizes items, starting with the longest ones:
+A `TabControl` for many tabs:
 
-![](http://i3.codeplex.com/Download?ProjectName=betterwpfcontrols&DownloadId=343929)
+- **Scrolling.** When the tabs do not fit, scroll buttons appear at both ends of the strip.
+- **Quick links.** A menu button lists every tab, so you can jump to one that is scrolled out of
+  view; the active tab is marked. It is shown only while tabs are cut off;
+  `ShowQuickLinksButton="False"` hides it.
+- **Locked tabs.** `bwcPanels:ScrollablePanel.IsLocked="True"` keeps a tab in place while the others
+  scroll.
+- `SelectItemOnScroll` decides whether scrolling also selects the next tab.
+- `ScrollToLeftContent` / `ScrollToRightContent` replace the scroll buttons with your own content.
+  A button inside it marked `bwcPanels:ScrollablePanel.IsScroller="True"` gets the scroll command.
 
-In the end all items have the size:
+```xml
+<bwc:TabControl ItemsSource="{Binding Documents}" SelectedItem="{Binding SelectedDocument}">
+    <bwc:TabItem Header="Summary" bwcPanels:ScrollablePanel.IsLocked="True" />
+</bwc:TabControl>
+```
 
-![](http://i3.codeplex.com/Download?ProjectName=betterwpfcontrols&DownloadId=343930)
+### MenuButton
 
-###MenuButton
-Use a menu button when you need a menu for a small set of related commands.
+A button that opens a menu for a small set of related commands. Each item runs `Command` with the
+item as parameter. With `ShowSelection="True"` the selected item is marked.
 
-![](http://i3.codeplex.com/Download?ProjectName=betterwpfcontrols&DownloadId=325758)
+### SplitButton
 
-###SplitButton
-Use a split button to consolidate a set of variations of a command, especially when one of the commands is used most of the time.
+A button with a primary command and a menu of variations, for a command that is mostly used one way.
 
-![](http://i3.codeplex.com/Download?ProjectName=betterwpfcontrols&DownloadId=325759)
+### ScrollButton
 
-###Other controls
-* Auto-complete texbox - shows hints to users
-* ImageButton - a chrome-less button which uses a given image as its content 
-* CollapsibleGridSplitter - can collapse grid's row (or column) in one click
-* ContentAdorner - an implementation of Adorner which accepts a given UIElement as its visual element
-* ContentBox - a button which shows additinal content in a popup on a click
+A flat button with a chevron (`Direction="Left"` or `"Right"`). It is the default scroll button of
+`ScrollablePanel` and the `TabControl`, and can be used on its own.
+
+### TreeListBox
+
+Shows very large trees with virtualization: the tree is flattened into a list on the fly, and the
+list reuses the virtualization of `ListBox` / `VirtualizingStackPanel`.
+
+### Panels
+
+- **ScrollablePanel** – scrolls its children when there is not enough room for all of them; the
+  header panel of the `TabControl`.
+- **ResizablePanel** – shrinks its children when there is not enough room, longest ones first,
+  until all have the same size.
+
+### Other controls
+
+- **AutoCompleteTextBox** – a text box that shows suggestions while typing.
+- **ImageButton** – a chrome-less button that shows an image.
+- **CollapsibleGridSplitter** – collapses a grid row or column with one click.
+- **ContentAdorner** – an `Adorner` that shows any `UIElement`.
+- **ContentBox** – a button that shows additional content in a popup.
+
+## Theming
+
+The menu and the scroll buttons draw their chevrons in `Foreground`, so they follow the text colour
+of their surroundings. The hover backgrounds are semi-transparent and work on light and dark
+backgrounds. For a theme of your own, set the brushes in a style and bind them to your theme
+resources:
+
+| Control | Property | Used for |
+|---------|----------|----------|
+| `MenuButton` | `Foreground` | Chevron and item text |
+| | `HoverBackground` | Toggle button under the mouse or while the menu is open |
+| | `PopupBackground`, `PopupBorderBrush` | Menu popup |
+| | `ItemHighlightBackground` | Menu item under the mouse |
+| | `SelectionAccent` | Bar next to the selected item (with `ShowSelection`) |
+| `ScrollButton` | `Foreground` | Chevron |
+| | `HoverBackground` | Button under the mouse |
+| | `CornerRadius` | Rounded corners of the hover background |
+
+```xml
+<Style TargetType="{x:Type bwc:ScrollButton}">
+    <Setter Property="Foreground" Value="{DynamicResource MyTextBrush}" />
+    <Setter Property="HoverBackground" Value="{DynamicResource MyHoverBrush}" />
+</Style>
+```
+
+A `TabControl` with a custom template uses its own `MenuButton` as quick-links button
+(`PART_QuickLinksHost`); give that one the style:
+
+```xml
+<bwc:MenuButton x:Name="PART_QuickLinksHost" Style="{StaticResource MyMenuButtonStyle}" />
+```
