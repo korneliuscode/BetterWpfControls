@@ -33,7 +33,8 @@ A `TabControl` for many tabs:
 
 - **Scrolling.** When the tabs do not fit, scroll buttons appear at both ends of the strip.
 - **Quick links.** A menu button lists every tab, so you can jump to one that is scrolled out of
-  view. It is shown only while tabs are cut off; `ShowQuickLinksButton="False"` hides it.
+  view; the active tab is marked. It is shown only while tabs are cut off;
+  `ShowQuickLinksButton="False"` hides it.
 - **Locked tabs.** `bwcPanels:ScrollablePanel.IsLocked="True"` keeps a tab in place while the others
   scroll.
 - `SelectItemOnScroll` decides whether scrolling also selects the next tab.
@@ -49,7 +50,7 @@ A `TabControl` for many tabs:
 ### MenuButton
 
 A button that opens a menu for a small set of related commands. Each item runs `Command` with the
-item as parameter.
+item as parameter. With `ShowSelection="True"` the selected item is marked.
 
 ### SplitButton
 
@@ -93,6 +94,7 @@ resources:
 | | `HoverBackground` | Toggle button under the mouse or while the menu is open |
 | | `PopupBackground`, `PopupBorderBrush` | Menu popup |
 | | `ItemHighlightBackground` | Menu item under the mouse |
+| | `SelectionAccent` | Bar next to the selected item (with `ShowSelection`) |
 | `ScrollButton` | `Foreground` | Chevron |
 | | `HoverBackground` | Button under the mouse |
 | | `CornerRadius` | Rounded corners of the hover background |
