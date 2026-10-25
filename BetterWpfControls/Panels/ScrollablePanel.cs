@@ -32,8 +32,8 @@ namespace BetterWpfControls.Panels
             });
 
             // set default scroll buttons
-            _btnScrollLeft.Content = new ScrollButton() { Direction = ScrollDirection.Left, Command = ScrollToLeftCommand, Margin = new Thickness(0, 0, 2, 0) };
-            _btnScrollRight.Content = new ScrollButton() { Direction = ScrollDirection.Right, Command = ScrollToRightCommand, Margin = new Thickness(2, 0, 0, 0) };
+            _btnScrollLeft.Content = new ScrollButton() { Direction = ScrollDirection.Left, Command = ScrollToLeftCommand };
+            _btnScrollRight.Content = new ScrollButton() { Direction = ScrollDirection.Right, Command = ScrollToRightCommand };
         }
 
         #endregion .ctors

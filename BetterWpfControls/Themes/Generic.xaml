@@ -44,6 +44,7 @@
 		<Setter Property="PopupBackground" Value="WhiteSmoke" />
 		<Setter Property="PopupBorderBrush" Value="Gray" />
 		<Setter Property="ItemHighlightBackground" Value="#330078D7" />
+		<Setter Property="SelectionAccent" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:MenuButton}">
@@ -111,13 +112,18 @@
 		<Setter Property="Command" Value="{Binding Command, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MenuButton}}}" />
 		<Setter Property="CommandParameter" Value="{Binding}" />
 		<Setter Property="Background" Value="Transparent" />
-		<Setter Property="Padding" Value="8,4" />
+		<Setter Property="BorderBrush" Value="Transparent" />
+		<Setter Property="Padding" Value="10,4,8,4" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:MenuButtonItem}">
-					<Border Background="{TemplateBinding Background}" CornerRadius="4" Padding="{TemplateBinding Padding}">
-						<ContentPresenter />
-					</Border>
+					<Grid>
+						<Border Background="{TemplateBinding Background}" CornerRadius="4" Padding="{TemplateBinding Padding}">
+							<ContentPresenter />
+						</Border>
+						<!-- Accent bar of the selected item; BorderBrush stays transparent otherwise -->
+						<Rectangle Width="3" RadiusX="1.5" RadiusY="1.5" Margin="1,5" HorizontalAlignment="Left" Fill="{TemplateBinding BorderBrush}" />
+					</Grid>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -130,6 +136,15 @@
 				</MultiTrigger.Conditions>
 				<Setter Property="Background" Value="{Binding ItemHighlightBackground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MenuButton}}}" />
 			</MultiTrigger>
+			<!-- The selected item gets an accent bar and a heavier weight when the menu shows the selection -->
+			<MultiDataTrigger>
+				<MultiDataTrigger.Conditions>
+					<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True" />
+					<Condition Binding="{Binding ShowSelection, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MenuButton}}}" Value="True" />
+				</MultiDataTrigger.Conditions>
+				<Setter Property="BorderBrush" Value="{Binding SelectionAccent, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:MenuButton}}}" />
+				<Setter Property="FontWeight" Value="SemiBold" />
+			</MultiDataTrigger>
 		</Style.Triggers>
 	</Style>
 
@@ -138,6 +153,7 @@
 		<Setter Property="HoverBackground" Value="#1F808080" />
 		<Setter Property="Focusable" Value="False" />
 		<Setter Property="Width" Value="20" />
+		<Setter Property="Margin" Value="0,0,2,0" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:ScrollButton}">
@@ -159,6 +175,11 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
+		<Style.Triggers>
+			<Trigger Property="Direction" Value="Right">
+				<Setter Property="Margin" Value="2,0,0,0" />
+			</Trigger>
+		</Style.Triggers>
 	</Style>
 
 	<Style TargetType="{x:Type local:ImageButton}">

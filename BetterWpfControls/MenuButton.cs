@@ -199,6 +199,34 @@ namespace BetterWpfControls
 
         #endregion ItemHighlightBackground
 
+        #region ShowSelection
+
+        /// <summary>Marks the selected item in the menu, e.g. the active tab in the quick links of a <see cref="TabControl"/>.</summary>
+        public bool ShowSelection
+        {
+            get { return (bool)GetValue(ShowSelectionProperty); }
+            set { SetValue(ShowSelectionProperty, value); }
+        }
+
+        public static readonly DependencyProperty ShowSelectionProperty =
+            DependencyProperty.Register("ShowSelection", typeof(bool), typeof(MenuButton), new UIPropertyMetadata(false));
+
+        #endregion ShowSelection
+
+        #region SelectionAccent
+
+        /// <summary>Bar next to the selected item while <see cref="ShowSelection"/> is on.</summary>
+        public Brush SelectionAccent
+        {
+            get { return (Brush)GetValue(SelectionAccentProperty); }
+            set { SetValue(SelectionAccentProperty, value); }
+        }
+
+        public static readonly DependencyProperty SelectionAccentProperty =
+            DependencyProperty.Register("SelectionAccent", typeof(Brush), typeof(MenuButton), new UIPropertyMetadata(null));
+
+        #endregion SelectionAccent
+
         #endregion Properties
 
         #region Methods
